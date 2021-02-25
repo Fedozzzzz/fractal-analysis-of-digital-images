@@ -7,10 +7,12 @@ def get_image_resolution(img):
 
 
 def get_box_count(img, k):
+    w, h = get_image_resolution(img)
+
     # crop image by box size
     S = np.add.reduceat(
-        np.add.reduceat(img, np.arange(0, img.shape[0], k), axis=0),
-        np.arange(0, img.shape[1], k), axis=1)
+        np.add.reduceat(img, np.arange(0, w, k), axis=0),
+        np.arange(0, h, k), axis=1)
 
     # count non-empty and non-full boxes
     return len(np.where((S > 0) & (S < k * k))[0])
@@ -39,43 +41,22 @@ def get_fractal_dimension(input_img):
     for size in sizes:
         counts.append(get_box_count(img, size))
 
-    # applying least square method
-    coeffs = np.polyfit(np.log(sizes), np.log(counts), 1)
-    return -coeffs[0]
+    # applying least square method and returning result
+    res = np.polyfit(np.log(1.0 / sizes), np.log(counts), 1)
+    return res[0]
 
 
-def run_examples():
-    img_path_1 = './images/1.jpg'
-    img = cv2.imread(img_path_1)
-    print("{:10}: {}".format(img_path_1, get_fractal_dimension(img)))
-
-    img_path_2 = './images/2.jpg'
-    img = cv2.imread(img_path_2)
-    print("{:10}: {}".format(img_path_2, get_fractal_dimension(img)))
-
-    img_path_3 = './images/3.jpg'
-    img = cv2.imread(img_path_3)
-    print("{:10}: {}".format(img_path_3, get_fractal_dimension(img)))
-
-    img_path_4 = './images/4.jpg'
-    img = cv2.imread(img_path_4)
-    print("{:10}: {}".format(img_path_4, get_fractal_dimension(img)))
-
-    img_path_5 = './images/image.jpg'
-    img = cv2.imread(img_path_5)
-    print("{:10}: {}".format(img_path_5, get_fractal_dimension(img)))
-
-    img_path_6 = './images/1.png'
-    img = cv2.imread(img_path_6)
-    print("{:10}: {}".format(img_path_6, get_fractal_dimension(img)))
-
-    img_path_7 = './images/m1.png'
-    img = cv2.imread(img_path_7)
-    print("{:10}: {}".format(img_path_7, get_fractal_dimension(img)))
+def run_example_by_paths(paths):
+    assert len(paths) != 0
+    for img_path in paths:
+        img = cv2.imread(img_path)
+        print("{:10}: {}".format(img_path, get_fractal_dimension(img)))
 
 
 if __name__ == '__main__':
-    run_examples()
+    paths = ['./images/1.jpg', './images/2.jpg', './images/3.jpg', './images/4.jpg', './images/image.jpg',
+             './images/1.png', './images/m1.png']
+    run_example_by_paths(paths)
 
     """
      RESULT IS: 
