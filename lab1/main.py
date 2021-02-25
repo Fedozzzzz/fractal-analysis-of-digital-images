@@ -12,7 +12,7 @@ def get_box_count(img, k):
         np.add.reduceat(img, np.arange(0, img.shape[0], k), axis=0),
         np.arange(0, img.shape[1], k), axis=1)
 
-    # calculate box count
+    # count non-empty and non-full boxes
     return len(np.where((S > 0) & (S < k * k))[0])
 
 
