@@ -29,10 +29,10 @@ def get_fractal_dimension(input_img):
     min_dim = min(get_image_resolution(img))
 
     # greatest power of 2 less than or equal to min_dim
-    greatest_power = 2 ** np.floor(np.log(min_dim) / np.log(2))
+    gp = 2 ** np.floor(np.log(min_dim) / np.log(2))
 
     # extract the exponent
-    exp = int(np.log(greatest_power) / np.log(2))
+    exp = int(np.log(gp) / np.log(2))
 
     sizes = 2 ** np.arange(exp, 1, -1)
 
