@@ -55,7 +55,7 @@ def run_example_by_paths(paths):
 
 if __name__ == '__main__':
     paths = ['./images/1.jpg', './images/2.jpg', './images/3.jpg', './images/4.jpg', './images/image.jpg',
-             './images/1.png', './images/m1.png']
+             './images/1.png', './images/m1.png', './images/russia.png']
     run_example_by_paths(paths)
 
     """
@@ -67,4 +67,5 @@ if __name__ == '__main__':
     ./images/image.jpg: 1.3428497984694394
     ./images/1.png: 1.1938172240598617
     ./images/m1.png: 1.6483351742881667
+    ./images/russia.png: 1.312861999042033
     """
