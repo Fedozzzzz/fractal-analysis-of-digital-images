@@ -12,6 +12,7 @@ b[:, :, 2] = 0
 # RGB - image with Blue channel
 cv2.imshow('B-RGB', b)
 
+# save result to "results" directory
 cv2.imwrite('./results/blue.jpg', b)
 
 cv2.waitKey(0)
