@@ -68,14 +68,14 @@ def segment_image(image):
             A[x][y] = get_A(crop_img, deltas)
 
     # getting threshold for segmentation
-    arr_mean = np.mean(A)
+    threshold = np.mean(A)
 
     # applying segmentation to the input document
     # white color - text or graphics
     # black color - background
     for x in range(0, c_w):
         for y in range(0, c_h):
-            if A[x][y] > arr_mean:
+            if A[x][y] > threshold:
                 cv2.rectangle(img, (y * cell_size, x * cell_size), (cell_size * (y + 1), cell_size * (x + 1)), (255, 255, 255), -1)
             else:
                 cv2.rectangle(img, (y * cell_size, x * cell_size), (cell_size * (y + 1), cell_size * (x + 1)),
